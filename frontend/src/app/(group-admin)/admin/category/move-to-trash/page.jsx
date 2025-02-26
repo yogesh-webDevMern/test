@@ -5,6 +5,7 @@ import { timeAgo } from "@/library/helper";
 import DeleteBtn from "@/components/admin/DeleteBtn";
 import ToggleStatus from "@/components/admin/ToggleStatus";
 import Restore from "@/components/admin/Restore";
+import { FcEmptyTrash } from "react-icons/fc";
 
 
 const CategoryList = async () => {
@@ -16,7 +17,7 @@ const CategoryList = async () => {
         <div className="p-6 bg-gray-100 min-h-screen">
             <div className=" bg-white p-4 rounded-lg shadow-md">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-semibold">Categories</h2>
+                    <h2 className="text-xl font-semibold">Trash</h2>
                     <div className="flex gap-5">
                         <Link href="/admin/category">
 
@@ -47,17 +48,18 @@ const CategoryList = async () => {
                                 <td className="p-2 border">{category.name}</td>
                                 <td className="p-2 border">{category.slug}</td>
                                 <td className="p-2 border">
-                                    <ToggleStatus status={category.status} id={category._id} apiUrl={`/category/change-status`} />
+                                    <ToggleStatus flag={5} status={category.status}  />
                                 </td>
                                 <td className="p-2 border">{timeAgo(category.deletedAt)}</td>
-                                <td className="p-2 border flex justify-center gap-3">
-                                    <Restore apiUrl={`/category/restore/${category._id}`} />
-                                    <DeleteBtn flag={0} deleteUrl={`/category/delete/${category._id}`} />
+                                <td className="p-2 border flex justify-center items-center gap-3">
+                                    <Restore  apiUrl={`/category/restore/${category._id}`} />
+                                    <DeleteBtn className="h-[30px]" flag={0} deleteUrl={`/category/delete/${category._id}`} />
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                {categories.length==0 && <div  className="bg-purple-500 flex gap-4 text-xl text-white p-2 justify-center items-center rounded mt-5 "> The trash is empty right now <FcEmptyTrash /></div> }
             </div>
         </div>
     );

@@ -2,7 +2,7 @@ const  express = require("express");
 const categoryRouter = express.Router();
 const {CategoryController} = require("../controllers/categorycontroller");
 categoryRouter.post("/create",CategoryController.create);
-categoryRouter.get("/get-data",CategoryController.read);
+categoryRouter.get("/get-data/:id?",CategoryController.read);
 categoryRouter.get("/trash-get-data",CategoryController.trashGetData);
 categoryRouter.delete("/delete/:id",CategoryController.deletefuction);
 categoryRouter.patch("/move-to-trash/:id",CategoryController.moveToTrash);

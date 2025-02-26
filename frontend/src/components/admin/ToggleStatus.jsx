@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import {axiosApiInstance} from "@/library/helper";
 import { toast } from 'react-toastify';
 
-export default function ToggleStatus({status,apiUrl,id}) {
+export default function ToggleStatus({status,apiUrl,id,flag}) {
     const [current_status,setCurrentStatus] = useState(status);
     const toggleHandler=()=>
     {
@@ -26,7 +26,14 @@ toast.error("something went wrong");
       
     }
   return (
-    <button onClick={toggleHandler} className={`${current_status?'bg-green-500':'bg-red-500'} text-white px-2  rounded-md `}>
+    <button onClick={()=>
+    {
+      if(flag!==5)
+      {
+        toggleHandler();  
+      }
+    }
+    } className={`${current_status?'bg-green-500':'bg-red-500'} text-white px-2  rounded-md `}>
         {current_status?'Active':'Inactive'}
     </button>
   )

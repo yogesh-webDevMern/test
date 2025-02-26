@@ -5,7 +5,7 @@ import {axiosApiInstance} from "@/library/helper";
 import {toast} from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
-export default function Restore({apiUrl}) {
+export default function Restore({apiUrl,className}) {
     const router=useRouter();
     console.log(apiUrl);
  const RestoreHandler=()=>
@@ -29,7 +29,7 @@ else{
 
     return (
         <div>
-            <button onClick={RestoreHandler} className="text-blue-500 hover:text-blue-600">
+            <button onClick={RestoreHandler} className={`text-blue-500 hover:text-blue-600 pt-2 ${className}`}>
                 <MdSettingsBackupRestore />
             </button>
         </div>

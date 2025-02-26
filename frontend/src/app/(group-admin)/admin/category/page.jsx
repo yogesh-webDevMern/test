@@ -60,9 +60,11 @@ const categories = categoryJSON?.categories;
                                 </td>
                                 <td className="p-2 border">{timeAgo(category.createdAt)}</td>
                                 <td className="p-2 border flex justify-center gap-3">
+                                    <Link href={`/admin/category/edit/${category._id}`}>
                                     <button className="text-yellow-500 hover:text-yellow-600">
                                         <FaEdit />
                                     </button>
+                                    </Link>
                             <DeleteBtn flag={1} deleteUrl={`/category/move-to-trash/${category._id}`}/>
                                 </td>
                             </tr>

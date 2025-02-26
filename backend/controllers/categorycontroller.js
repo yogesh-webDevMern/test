@@ -63,8 +63,17 @@ res.send(
 async read (req,res)
 {
  try{
-const categories =await categoryModel.find({deletedAt:null}).sort({createdAt:-1});
-res.send({categories,total:categories.length,flag:1});
+    let categories;
+    if(req.params.id)
+    {
+        categories =await categoryModel.findOne({_id:req.params.id});
+        res.send({categories,flag:1});
+    }else
+    {
+         categories =await categoryModel.find({deletedAt:null}).sort({createdAt:-1});
+        res.send({categories,total:categories.length,flag:1});
+    }
+
  }catch(error)
  {
 res.send({message:"Internal server error",flag:0});
