@@ -8,4 +8,5 @@ categoryRouter.delete("/delete/:id",CategoryController.deletefuction);
 categoryRouter.patch("/move-to-trash/:id",CategoryController.moveToTrash);
 categoryRouter.patch("/change-status",CategoryController.changeStatus);
 categoryRouter.patch("/restore/:id",CategoryController.restoreFuc);
+categoryRouter.put("/update/:id",CategoryController.update);
 module.exports = categoryRouter;  

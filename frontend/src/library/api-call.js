@@ -1,8 +1,11 @@
 import axios from "axios";
 import {axiosApiInstance} from "@/library/helper";
-const getCategoryData = async()=>
+const getCategoryData = async(id=null)=>
 {
-return axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + '/category/get-data').then((response)=>
+    let api = '/category/get-data';
+    if(id) api+=`/${id}`;
+
+return axiosApiInstance.get(api).then((response)=>
 {
 return response.data;
 } ).catch((error)=>
@@ -10,6 +13,19 @@ return response.data;
 return null;
 })
 }
+const getColorData = async(id=null)=>
+    {
+        let api = '/color/get-data';
+        if(id) api+=`/${id}`;
+    
+    return axiosApiInstance.get(api).then((response)=>
+    {
+    return response.data;
+    } ).catch((error)=>
+    {
+    return null;
+    })
+    }
 const MoveToTrashData = async()=>
     {
     return axiosApiInstance.get( '/category/trash-get-data').then((response)=>
@@ -20,4 +36,15 @@ const MoveToTrashData = async()=>
     return null;
     })
     }
-export {getCategoryData,MoveToTrashData};
+    const MoveToTrashColorData = async()=>
+        {
+        return axiosApiInstance.get( '/color/trash-get-data').then((response)=>
+        {
+        return response.data;
+        } ).catch((error)=>
+        {
+        return null;
+        })
+        }
+  
+export {getCategoryData,MoveToTrashData,getColorData,MoveToTrashColorData};

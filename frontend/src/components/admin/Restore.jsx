@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Restore({apiUrl,className}) {
     const router=useRouter();
-    console.log(apiUrl);
+    // console.log(apiUrl);
  const RestoreHandler=()=>
     {
 axiosApiInstance.patch(apiUrl).then((response)=>

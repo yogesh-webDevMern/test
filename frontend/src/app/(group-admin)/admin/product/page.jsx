@@ -1,5 +1,7 @@
 
+import Link from "next/link";
 import { FaEdit, FaTrash } from "react-icons/fa";
+// import Link from "next/link";
 
 const products = [
   { id: 1, name: "Product 1", price: "$10", description: "Description for product 1" },
@@ -10,6 +12,11 @@ const products = [
 export default function ProductListing() {
   return (
     <div className="bg-gray-100 min-h-screen p-6">
+      <div className="flex justify-end">
+<button className="font-bold text-white bg-purple-500 p-2 rounded-md">
+  <Link href="/admin/product/add">Add product</Link>
+</button>
+      </div>
       <h2 className="text-2xl font-semibold mb-4">Product Listing</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {products.map((product) => (

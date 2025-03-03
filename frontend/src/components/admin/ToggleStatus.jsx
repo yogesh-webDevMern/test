@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import {axiosApiInstance} from "@/library/helper";
 import { toast } from 'react-toastify';
 
-export default function ToggleStatus({status,apiUrl,id,flag}) {
+export default function 
+ToggleStatus({status,apiUrl,id,flag}) {
     const [current_status,setCurrentStatus] = useState(status);
     const toggleHandler=()=>
     {
@@ -21,6 +22,7 @@ toast.error(response.data.message);
 
       }).catch((error)=>
       {
+        console.log(error.message);
 toast.error("something went wrong");
       })
       

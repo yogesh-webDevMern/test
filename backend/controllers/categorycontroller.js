@@ -139,6 +139,26 @@ categoryModel.updateOne({_id:id},{deletedAt:null}).then(()=>
 {
     res.send({message:"Internal Server error",flag:0});
 }
+},
+async update(req,res)
+{
+    try{
+        const data = req.body;
+        const id = req.params.id;
+        await categoryModel.updateOne({_id:id},{name:data.name,slug:data.slug}).then(
+            ()=>
+            {
+                res.send({message:"data successfully updated",flag:1});
+            }
+        ).catch(()=>
+        {
+            res.send({message:"unable to update data",flag:0});
+        })
+
+    }catch(error)
+    {
+        res.send({message: "Internal server error",flag:0});
+    }
 }
 }
 
