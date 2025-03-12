@@ -11,15 +11,18 @@
     const [isUserOpen,setIsUserOpen]= useState(false);
 
     return (
+      
       <div className={`h-screen ${className} `}>
         {/* Sidebar */}
-        <div className={`bg-white bg-red text-gray-800 shadow-md h-full transition-all duration-300 p-2 md:p-5 pt-8 `}>
+        <div className={`bg-white fixed md:relative  bg-red text-gray-800 shadow-md h-full transition-all duration-300 p-2 md:p-5 pt-8 `}>
           {/* Menu Toggle Button */}
+          
           <div className="flex justify-between items-center">
       
           </div>
           
           <h3 className="mt-6 text-gray-600 text-[14px] md:text-xl font-bold uppercase text-center md:text-left">Admin Panel</h3>
+          
           <ul className="mt-3">
             {/* Dashboard section */}
             <li className="flex items-center p-2 hover:bg-gray-200 rounded-lg cursor-pointer" onClick={() => setDashboardOpen(!dashboardOpen)}>

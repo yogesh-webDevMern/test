@@ -26,9 +26,9 @@ export default function RootLayout({ children }) {
         <>
         <ToastContainer position="bottom-right"/>
         <div className="grid grid-cols-5">
-            <SideMenu className="col-span-2  md:col-span-1"/>
-            <div className="col-span-3 md:col-span-4">
-            <Header/>
+            <SideMenu className="col-span-0 fixed md:relative  md:col-span-1"/>
+            <div className="col-span-5 md:col-span-4">
+            <Header className="sticky top-0 bg-white"/>
         {children}
             </div>
         </div>

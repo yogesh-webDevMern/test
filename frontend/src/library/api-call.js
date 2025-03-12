@@ -1,5 +1,26 @@
 import axios from "axios";
 import {axiosApiInstance} from "@/library/helper";
+const getProductData= async()=>
+{
+    return axiosApiInstance.get( '/product/get-data').then((response)=>
+        {
+        return response.data;
+        } ).catch((error)=>
+        {
+        return null;
+        })
+    
+}
+const moveToTrashProductData = async()=>
+{
+    return axiosApiInstance.get('/product/get-trash-data').then((response)=>
+    {
+        return response.data;
+    }).catch((error)=>
+    {
+        return null;
+    })
+}
 const getCategoryData = async(id=null)=>
 {
     let api = '/category/get-data';
@@ -47,4 +68,4 @@ const MoveToTrashData = async()=>
         })
         }
   
-export {getCategoryData,MoveToTrashData,getColorData,MoveToTrashColorData};
+export {getCategoryData,MoveToTrashData,getColorData,MoveToTrashColorData,getProductData,moveToTrashProductData};

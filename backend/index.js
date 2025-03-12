@@ -8,12 +8,13 @@ const cors = require('cors');
 
 
 const app = express();
+app.use(express.static("./public"));
 app.use(express.json());
 app.use(cors({origin:'http://localhost:3000'}));
 
 app.use("/category",categoryRouter);
 app.use("/color",colorRouter);
-app.use("/product",productRouter);
+app.use("/product",productRouter);  
 
 
 mongoose.connect("mongodb://127.0.0.1:27017",{dbName:"Ishop"})

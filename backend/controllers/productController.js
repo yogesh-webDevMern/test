@@ -1,15 +1,123 @@
 const productModel = require("../models/product.model");
+const {generateFileName} = require("../helper");
+const fs = require("fs");
+const ProductRouter = require("../routers/product.router");
 // const ProductModel = require("../models/product.model");
 const productController={
+     addProduct: async(req,res)=>
+    {
+try{
+const image = req.files.image;
+const {name,slug,original_price,discount_percentage,final_price,category,colors,description} = req.body;
+const destination = './public/images/product/';
+// console.log(image.name);
+const imageName = generateFileName(image.name);
+// console.log(imageName);
+image.mv(
+    destination + imageName,
+    (err)=>
+    {
+        if(err)
+        {
+            res.send({flag:0,message:"Image upload failed"});
+        }
+        else
+        {
+         const product = new productModel({
+            name:name,
+            slug,slug,
+            price:original_price,
+            discount:discount_percentage,
+            final_price:final_price,
+            description:description,
+            main_image:imageName,
+            category_id:category,
+            colors:JSON.parse(colors)
+         });
+         product.save().then(()=>
+        {
+            res.send({message:"Product added successfully",flag:1});
+            console.log(colors);
+        }).catch(()=>
+        {
+            fs.unlinkSync(destination + imageName);
+            res.send({message:"unable to upload Internal server error",flag:0});
+        })
+        }
+    }
+)
+}catch(error){
+
+}
+    },
 async getAllProducts(req,res)
 {
     try{
-const products = req.params.id ? await productModel.findById(req.params.id) : await productModel.find();
+const products = req.params.id ? await productModel.findById(req.params.id) : await productModel.find({deletedAt:null}).populate(
+    ['category_id','colors']
+);
 res.send({products,flag:1});
     }catch(error)
     {
 res.send({message:"Internal server error",flag:0});
     }
+},
+async restoreProduct(req,res)
+{
+try{
+await productModel.updateOne({_id:req.params.id},{deletedAt:null}).then(()=>
+{
+    res.send({message:"product restored successfully",flag:1});
+}).catch(()=>
+{
+    res.send({message:"unable to restore the product",flag:0});
+})
+}catch(error)
+{
+    res.send({message:"Internal server error",flag:0});
+}
+},
+async delProduct(req,res)
+{
+try{
+productModel.deleteOne({_id:req.params.id}).then(()=>
+{
+    res.send({message:"product deleted successfully",flag:1});
+}).catch(()=>
+{
+    res.send({message:"unable to delete product"});
+})
+}catch(error)
+{
+    res.send({message:"Internal server error",flag:0});
+}
+},
+async getTrashDataProduct(req,res)
+{
+try{
+    const products = await productModel.find({ deletedAt: { $ne: null } });
+res.send({products,flag:1});
+
+}catch(error)
+{
+    res.send({message:"Internal server error",flag:0});
+}
+},
+async moveToTrash(req,res)
+{
+try{
+   await productModel.updateOne({_id:req.params.id},{deletedAt:new Date()}).then(()=>
+        {
+            res.send({message:"product move to trash successfully",flag:1});
+        }).catch(()=>
+        {
+            res.send({message:"unable to move to trash product",flag:0});
+        })
+}catch(error)
+{
+res.send({message:"internal server error"});
+}
+
 },
 async checkProductExists (req,res)
 {

@@ -22,6 +22,22 @@ const ProductSchema =new mongoose.Schema({
             ref:"colorModel",
             required:true
         }
-    ]
+    ],
+    status:{
+            type:Boolean,
+            default:true,
+    },
+    stock:{
+        type:Boolean,
+        default:true
+    },
+    deletedAt:{
+        type:Date,
+        default:null
+    },
+}
+,
+{
+    timestamps:true
 });
 module.exports=mongoose.model("product",ProductSchema);
