@@ -5,4 +5,4 @@ function generateFileName(original_name)
 }
 module.exports ={
     generateFileName
-}
+} 

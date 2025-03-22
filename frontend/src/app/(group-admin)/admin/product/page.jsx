@@ -9,9 +9,11 @@ import DeleteBtn from "@/components/admin/DeleteBtn";
 import ToggleStatus from '@/components/admin/ToggleStatus';
 import ViewDetail from '@/components/admin/ViewDetail';
 import MultipleImage from '@/components/admin/MultipleImage';
+import { CiSearch } from "react-icons/ci";
 
 export default function Page() {
   const [products, setProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,14 +26,30 @@ export default function Page() {
 
     fetchData();
   }, []);
+
+
+  // search
+  const filteredProducts = products.filter((prod) =>
+    prod.name.toLowerCase().includes(searchQuery.toLowerCase())
+
+);
   return (
     <>
+
+      <div className="relative w-[50%] mx-auto mt-5">
+        <CiSearch className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-500 text-xl" />
+        <input
+          type="text"
+          className="outline-none border-purple-400 bg-gradient-to-r from-white to-purple-100 text-gray-500 rounded-full border-2 w-full px-8 placeholder:text-[14px] py-1 shadow-lg block"
+          placeholder="Search Products..."  onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <div className='flex justify-between'>
         <div className='mt-[10px] font-bold text-xl ml-3'>Products</div>
         <div className='flex gap-5'>
 
-        <div className='px-3 py-1 text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-md mt-3'><Link href="/admin/product/trash-products">View Trash</Link></div>
-        <Link href="/admin/product/add" className='py-1 px-2 text-white rounded-md bg-gradient-to-r from-purple-500 to-indigo-600 mt-3 mr-4'>Add Product</Link>
+          <div className='px-3 py-1 text-white bg-gradient-to-r from-purple-500 to-indigo-600 rounded-md mt-3'><Link href="/admin/product/trash-products">View Trash</Link></div>
+          <Link href="/admin/product/add" className='py-1 px-2 text-white rounded-md bg-gradient-to-r from-purple-500 to-indigo-600 mt-3 mr-4'>Add Product</Link>
         </div>
       </div>
 
@@ -54,7 +72,7 @@ export default function Page() {
           </thead>
           <tbody>
             {
-              products.length > 0 && products.map((prod, index) => (
+              filteredProducts.length > 0 ? filteredProducts.map((prod, index) => (
                 <tr key={prod._id} className="hover:bg-gray-50">
                   <td className="p-2 border text-black">{index + 1}</td>
                   <td className="p-2 border">{prod.name}/{prod.slug}</td>
@@ -97,13 +115,17 @@ export default function Page() {
                         </button>
                       </Link>
                       <DeleteBtn flag={1} deleteUrl={`/product/move-to-trash/${prod._id}`} />
-                      <ViewDetail data ={prod.description}/>
-                      <MultipleImage apiUrl={`/product/add-other-images/${prod._id}`} other_images={prod.other_images}/>
+                      <ViewDetail data={prod.description} />
+                      <MultipleImage imgDelApiUrl={`/product/delete-image/${prod._id}`} apiUrl={`/product/add-other-images/${prod._id}`} other_images={prod.other_images} />
                     </div>
                   </td>
                 </tr>
               ))
-            }
+      :(      <tr>
+        <td colSpan="9" className="p-4 text-center text-gray-500">
+          No products found which you are finding <img className='rounded-full mx-auto' width={100} src='https://img.freepik.com/free-vector/hand-drawn-no-data-illustration_23-2150544940.jpg?ga=GA1.1.1757076545.1688881343&semt=ais_hybrid'></img>...
+        </td>
+      </tr>)    }
 
           </tbody>
         </table>

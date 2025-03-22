@@ -1,5 +1,6 @@
 // this file will contain all the important functions
 import axios from "axios";
+// import { cookies } from "next/headers";
 const axiosApiInstance = axios.create({
     baseURL:process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000",
 });
@@ -37,4 +38,14 @@ function timeAgo(dateString)
         return seconds + ' seconds ago';
     }
 }
-module.exports = {titleToSlug,timeAgo,axiosApiInstance};
+const getCookie = (name)=>
+{
+    if (typeof document === "undefined") {
+        return console.log(null); // Prevents execution on the server
+      }
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if(parts.length==2) return (parts.pop().split(";").shift());    
+    return null;
+}
+module.exports = {titleToSlug,getCookie,timeAgo,axiosApiInstance};

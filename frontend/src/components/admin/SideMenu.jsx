@@ -12,7 +12,7 @@
 
     return (
       
-      <div className={`h-screen ${className} `}>
+      <div className={`h-screen ${className} hidden md:block `}>
         {/* Sidebar */}
         <div className={`bg-white fixed md:relative  bg-red text-gray-800 shadow-md h-full transition-all duration-300 p-2 md:p-5 pt-8 `}>
           {/* Menu Toggle Button */}

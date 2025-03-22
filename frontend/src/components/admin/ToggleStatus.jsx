@@ -1,18 +1,27 @@
 "use client"
 import React, { useState } from 'react'
-import {axiosApiInstance} from "@/library/helper";
+import {axiosApiInstance,getCookie} from "@/library/helper";
 import { toast } from 'react-toastify';
+
 
 export default function 
 ToggleStatus({status,apiUrl,id,flag}) {
     const [current_status,setCurrentStatus] = useState(status);
+  
+  const token = getCookie("admin_token");
     const toggleHandler=()=>
     {
       // setCurrentStatus(!current_status);
-      axiosApiInstance.patch(apiUrl,{id:id,new_status: !current_status}).then((response)=>{
+      axiosApiInstance.patch(apiUrl,{id:id,new_status: !current_status},
+        {
+          headers:{
+authorization:token ?? ""
+          }
+        }
+      ).then((response)=>{
         if(response.data.flag==1)
         {
-          setCurrentStatus(!current_status);
+          setCurrentStatus(!current_status);  
           toast.success(response.data.message);
         }
         else
@@ -22,8 +31,8 @@ toast.error(response.data.message);
 
       }).catch((error)=>
       {
-        console.log(error.message);
-toast.error("something went wrong");
+        // console.log(error.message);
+toast.error("internal server error");
       })
       
     }

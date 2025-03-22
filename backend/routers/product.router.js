@@ -13,6 +13,10 @@ ProductRouter.patch("/move-to-trash/:id",productController.moveToTrash);
 ProductRouter.get("/get-trash-data",productController.getTrashDataProduct);
 ProductRouter.delete("/delete/:id",productController.delProduct);
 ProductRouter.patch("/restore/:id",productController.restoreProduct);
+ProductRouter.post("/add-other-images/:id",fileUpload({
+    createParentPath:true
+}),productController.uploadOtherImages);
+ProductRouter.delete("/delete-image/:id/:image_index",productController.deleteImage);
 // ProductRouter.post("/create",productController.createProduct);
 // ProductRouter.put("/update/:id",productController.updateProduct);
 // ProductRouter.delete("/delete/:id",productController.deleteProduct);

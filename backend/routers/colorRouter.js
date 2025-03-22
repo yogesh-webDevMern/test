@@ -3,6 +3,8 @@ const colorRouter = express.Router();
 const ColorController = require("../controllers/colorcontroller");
 // const { CategoryController } = require("../controllers/categorycontroller");
 const colorcontroller = require("../controllers/colorcontroller");
+const autherizationMidlleware = require("../middlewares/auth");
+
 colorRouter.get("/get-data/:id?",ColorController.readCOlorData);
 colorRouter.post("/create",colorcontroller.createData);
 colorRouter.get("/trash-get-data",colorcontroller.trashData);

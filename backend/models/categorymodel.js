@@ -18,7 +18,7 @@ const categorySchema =new mongoose.Schema(
         status:
         {
             type:Boolean,
-            default:true
+            default:true  
 
         },
         deletedAt:{

@@ -16,17 +16,9 @@ const adminSchema = new mongoose.Schema(
             type:String,
             required:true,
         },
-        contact:{
-            type:String,
-            required:true
-        },
-        status:{
-            type:Boolean,
-            default:true
-        },
-        type:{
+       admin_type:{
             type:Number,
-            enum:[1,2],
+            enum:[1,2,3,4,5],
             //1: Super Admin, 2: Sub Admin, 3: Staff
             required:true
         }
@@ -35,3 +27,5 @@ const adminSchema = new mongoose.Schema(
         timestamps:true
     }
 )
+const adminModel = mongoose.model("admin",adminSchema);
+module.exports = adminModel;

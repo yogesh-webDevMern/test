@@ -3,12 +3,15 @@ import axios from "axios";
 import React from 'react';
 import Link from 'next/link';
 import { useRef } from 'react';
-import {titleToSlug} from '@/library/helper';
+import {titleToSlug,getCookie} from '@/library/helper';
 import {toast} from 'react-toastify';
+// import {getCookie} from "@/library/helper";
+// import { headers } from "next/headers";
 
 export default function Page() {
   const nameRef = useRef();
   const slugRef = useRef();
+  const token = getCookie("admin_token");
   // console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
   const nameChnageHandler =()=>
   {
@@ -25,7 +28,11 @@ const data = {
 }
 //send data to the server
 
-axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + '/category/create',data)
+axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + '/category/create',data,{headers:
+  {
+    authorization:token ?? ""
+  }
+})
 .then(response=>
 {
   console.log(response.data);
