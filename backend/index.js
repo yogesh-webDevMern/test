@@ -9,6 +9,7 @@ const adminRouter = require("./routers/adminrouter");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const uri_mongo = process.env.MONGO_URI;
 
 
 
@@ -30,7 +31,7 @@ return res.json({...req.cookies})
     }
 )
 
-mongoose.connect("mongodb://127.0.0.1:27017",{dbName:"Ishop"})
+mongoose.connect(uri_mongo,{dbName:"Ishop"})
 .then(
     ()=>
     {
