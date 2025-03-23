@@ -9,7 +9,7 @@ const adminRouter = require("./routers/adminrouter");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const uri_mongo = process.env.MONGO_URI;
+const uri_mongo = process.env.uri_mongo;
 
 
 
