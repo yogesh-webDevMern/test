@@ -49,7 +49,7 @@ try{
 
 }catch(error)
 {
-    // console.log(error);
+    console.log(error.messsage);
     res.send({message:"Internal server error",flag:0});
 }
     }
