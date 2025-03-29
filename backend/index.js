@@ -11,7 +11,6 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const uri_mongo = process.env.uri_mongo;
 // import dynamic from "next/dynamic";
-const MyComponent = dynamic(() => import("some-library"), { ssr: false });
 
 
 
