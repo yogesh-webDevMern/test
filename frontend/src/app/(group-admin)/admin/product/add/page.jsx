@@ -13,6 +13,7 @@ import RichTextEditor from "@/components/admin/RichTextEditor";
 
 
 
+
 export default function AddProduct() {
   const router = useRouter();
   const [category, setCategory] = useState([]);

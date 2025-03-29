@@ -1,16 +1,17 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const categoryRouter = require("./routers/categoryrouter");
 const colorRouter = require("./routers/colorRouter");
 const productRouter = require("./routers/product.router");
-const AdminRouter = require("./routers/adminrouter");
+// const AdminRouter = require("./routers/adminrouter");
 const cors = require('cors');
 const adminRouter = require("./routers/adminrouter");
 const cookieParser = require("cookie-parser");
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const uri_mongo = process.env.uri_mongo;
-
+import dynamic from "next/dynamic";
+const MyComponent = dynamic(() => import("some-library"), { ssr: false });
 
 
 
